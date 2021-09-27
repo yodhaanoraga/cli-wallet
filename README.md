@@ -1,13 +1,13 @@
 # lightWalletCLI
 
-A php based cli wallet for [Arionum][aro].
+A php based cli wallet for [Gaman][Gan] blockchain. Gaman is an Blockchain which containing GAN Coin as the main cryptocurrency. This blockchain is forked from Arionum (ARO) Blockchain.
 
 Requires php 7.2
 
 ## Usage
 
 ```bash
-light-arionum-cli [command] [options]
+light-gaman-cli [command] [options]
 ```
 
 ## Commands
@@ -45,13 +45,13 @@ To activate the testnet mode, create a file called .testnet in the same folder
 
 Coin | Address
 ---- | --------
-[ARO]: | 5WuRMXGM7Pf8NqEArVz1NxgSBptkimSpvuSaYC79g1yo3RDQc8TjVtGH5chQWQV7CHbJEuq9DmW5fbmCEW4AghQr
-[LTC]: | LWgqzbXGeucKaMmJEvwaAWPFrAgKiJ4Y4m
-[BTC]: | 1LdoMmYitb4C3pXoGNLL1VRj7xk3smGXoU
-[ETH]: | 0x4B904bDf071E9b98441d25316c824D7b7E447527
-[BCH]: | qrtkqrl3mxzdzl66nchkgdv73uu3rf7jdy7el2vduw
+[ARO]: | UnhhKyFdmdRrHDFxEyLJ76Q1JSxYfGptjj3W2hTJDkDpv2j9prUEsC6EwaGDMgHF4DA8QvR7vKCy4sKpE8tLfqa
+[LTC]: | 
+[BTC]: | 
+[ETH]: | 
+[BCH]: | 
 
-If you'd like to support the Arionum development, you can donate to the addresses listed above.
+If you'd like to support the Gaman Blockchain development, you can donate to the addresses listed above.
 
 [aro]: https://arionum.com
 [ltc]: https://litecoin.org
