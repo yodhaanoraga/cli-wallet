@@ -2,9 +2,9 @@
 <?php
 /*
 The MIT License (MIT)
-Copyright (c) 2018 AroDev
+Copyright (c) 2021 GanDev
 
-www.arionum.com
+www.gaman.web.id
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -58,8 +58,8 @@ $arg6=trim($argv[6]);
 $arg7=trim($argv[7]);
 $arg8=trim($argv[8]);
 
-if ((empty($arg1)&&file_exists("wallet.aro"))||$arg1=="help"||$arg1=="-h"||$arg1=="--help") {
-    die("light-arionum-cli <command> <options>\n
+if ((empty($arg1)&&file_exists("wallet.gan"))||$arg1=="help"||$arg1=="-h"||$arg1=="--help") {
+    die("light-gaman-cli <command> <options>\n
 Commands:\n
 balance\t\t\t\tprints the balance of the wallet 
 balance <address>\t\tprints the balance of the specified address
@@ -255,9 +255,9 @@ function peer_post($url, $data=array())
     global $testnet;
     if (!$localhost) {
         if ($testnet) {
-            $f=file("http://api.arionum.com/testnet.txt");
+            $f=file("http://api.gaman.web.id/testnet.txt");
         } else {
-            $f=file("http://api.arionum.com/peers.txt");
+            $f=file("http://api.gaman.web.id/peers.txt");
         }
         
         shuffle($f);
@@ -280,7 +280,7 @@ function peer_post($url, $data=array())
     $postdata = http_build_query(
         array(
             'data' => json_encode($data),
-            "coin"=>"arionum"
+            "coin"=>"gan"
             )
     );
     
@@ -368,8 +368,8 @@ function standard_transaction($address, $val, $version, $msg)
 }
 
 
-if (!file_exists("wallet.aro")) {
-    echo "No ARO wallet found. Generating a new wallet!\n";
+if (!file_exists("wallet.gan")) {
+    echo "No Gaman wallet found. Generating a new wallet!\n";
     $q=readline("Would you like to encrypt this wallet? (y/N) ");
     $encrypt=false;
     if (substr(strtolower(trim($q)), 0, 1)=="y") {
@@ -405,7 +405,7 @@ if (!file_exists("wallet.aro")) {
         
     $public_key= pem2coin($pub['key']);
 
-    $wallet="arionum:".$private_key.":".$public_key;
+    $wallet="gaman:".$private_key.":".$public_key;
     if (strlen($private_key)<20||strlen($public_key)<20) {
         die("Could not generate the EC key pair. Please check the openssl binaries.");
     }
@@ -415,7 +415,7 @@ if (!file_exists("wallet.aro")) {
         $wallet = base64_encode($iv.base64_encode(openssl_encrypt($wallet, 'aes-256-cbc', $password, OPENSSL_RAW_DATA, $iv)));
     }
 
-    $res=file_put_contents("wallet.aro", $wallet);
+    $res=file_put_contents("wallet.gan", $wallet);
     if ($res===false||$res<30) {
         die("Could not write the wallet file! Please check the permissions on the current directory.\n");
     }
@@ -424,8 +424,8 @@ if (!file_exists("wallet.aro")) {
     echo "Your Public Key is: $public_key\n";
     echo "Your Private Key is: $private_key\n";
 } else {
-    $wallet=trim(file_get_contents("wallet.aro"));
-    if (substr($wallet, 0, 7)!="arionum") {
+    $wallet=trim(file_get_contents("wallet.gan"));
+    if (substr($wallet, 0, 7)!="gaman") {
         echo "This wallet is encrypted.\n";
         do {
             $pass=readPasswordSilently("Password:");
@@ -438,7 +438,7 @@ if (!file_exists("wallet.aro")) {
             $password = substr(hash('sha256', $pass, true), 0, 32);
             $decrypted = openssl_decrypt(base64_decode($enc), 'aes-256-cbc', $password, OPENSSL_RAW_DATA, $iv);
         
-            if (substr($decrypted, 0, 7)=="arionum") {
+            if (substr($decrypted, 0, 7)=="gaman") {
                 $wallet=$decrypted;
                 break;
             }
@@ -493,8 +493,8 @@ if ($arg1=="balance") {
         echo "$x = $l\n";
     }
 } elseif ($arg1=="decrypt") {
-    $wallet="arionum:$private_key:$public_key";
-    $res=file_put_contents("wallet.aro", $wallet);
+    $wallet="gaman:$private_key:$public_key";
+    $res=file_put_contents("wallet.gan", $wallet);
     if ($res===false||$res<30) {
         echo "Your Public Key is: $public_key\n";
         echo "Your Private Key is: $private_key\n";
@@ -515,11 +515,11 @@ if ($arg1=="balance") {
             echo "The passwords did not match!\n";
         }
     } while (1);
-    $wallet="arionum:$private_key:$public_key";
+    $wallet="gaman:$private_key:$public_key";
     $password = substr(hash('sha256', $pass, true), 0, 32);
     $iv=random_bytes(16);
     $wallet = base64_encode($iv.base64_encode(openssl_encrypt($wallet, 'aes-256-cbc', $password, OPENSSL_RAW_DATA, $iv)));
-    $res=file_put_contents("wallet.aro", $wallet);
+    $res=file_put_contents("wallet.gan", $wallet);
     if ($res===false||$res<30) {
         echo "Your Public Key is: $public_key\n";
         echo "Your Private Key is: $private_key\n";
@@ -668,7 +668,7 @@ if ($arg1=="balance") {
         $pub = openssl_pkey_get_details($key1);
         
         $vote_public_key= pem2coin($pub['key']);
-        $vote_wallet="arionum:".$vote_private_key.":".$vote_public_key;
+        $vote_wallet="gaman:".$vote_private_key.":".$vote_public_key;
         if (strlen($vote_private_key)<20||strlen($vote_public_key)<20) {
             die("Could not generate the EC key pair. Please check the openssl binaries.");
         }
@@ -676,7 +676,7 @@ if ($arg1=="balance") {
         echo "Your Public Key is: $vote_public_key\n";
         echo "Your Private Key is: $vote_private_key\n";
         echo "Please save the voting keys and add them to the masternode config file.\n";
-        file_put_contents("voting_key_".uniqid().".aro", $vote_wallet);
+        file_put_contents("voting_key_".uniqid().".gan", $vote_wallet);
         $val=0.00000001;
         $fee=0.00000001;
         $version=105;
