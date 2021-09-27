@@ -1,6 +1,6 @@
 {
-  "name": "arionum/light-cli",
-  "description": "A PHP miner for the Arionum cryptocurrency.",
+  "name": "gaman/light-cli",
+  "description": "A PHP based wallet for the Gaman Blockchain.",
   "type": "library",
   "license": "MIT",
   "require": {
@@ -9,6 +9,6 @@
     "ext-openssl": "*"
   },
   "bin": [
-    "light-arionum-cli"
+    "light-gaman-cli"
   ]
 }
