@@ -255,9 +255,9 @@ function peer_post($url, $data=array())
     global $testnet;
     if (!$localhost) {
         if ($testnet) {
-            $f=file("http://api.gaman.web.id/testnet.txt");
+            $f=file("http://node1.gaman.web.id/testnet.txt");
         } else {
-            $f=file("http://api.gaman.web.id/peers.txt");
+            $f=file("http://node1.gaman.web.id/peers.txt");
         }
         
         shuffle($f);
@@ -425,7 +425,7 @@ if (!file_exists("wallet.gan")) {
     echo "Your Private Key is: $private_key\n";
 } else {
     $wallet=trim(file_get_contents("wallet.gan"));
-    if (substr($wallet, 0, 7)!="gaman") {
+    if (substr($wallet, 0, 5)!="gaman") {
         echo "This wallet is encrypted.\n";
         do {
             $pass=readPasswordSilently("Password:");
@@ -438,7 +438,7 @@ if (!file_exists("wallet.gan")) {
             $password = substr(hash('sha256', $pass, true), 0, 32);
             $decrypted = openssl_decrypt(base64_decode($enc), 'aes-256-cbc', $password, OPENSSL_RAW_DATA, $iv);
         
-            if (substr($decrypted, 0, 7)=="gaman") {
+            if (substr($decrypted, 0, 5)=="gaman") {
                 $wallet=$decrypted;
                 break;
             }
